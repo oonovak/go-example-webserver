@@ -15,4 +15,8 @@ node {
             sh 'go test' 
         }
     }
+    def DOCKER_HUB_ACCOUNT = 'oldrichn'
+    def DOCKER_IMAGE_NAME = 'go-example-webserver'
+    stage('BuildImage') 
+    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}", '.')
 }
