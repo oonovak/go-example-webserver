@@ -19,4 +19,11 @@ node {
     def DOCKER_IMAGE_NAME = 'go-example-webserver'
     stage('BuildImage') 
     def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}", '.')
+    
+    echo 'Testing Docker image'
+    stage("test image") {
+        docker.image("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}").inside {
+            sh './test.sh'
+        }
+    }
 }
